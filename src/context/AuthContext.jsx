@@ -3,22 +3,24 @@ export const AuthContext = createContext();
 import { auth } from "../firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 
-
 export const useAuth = () => {
-    return useContext(AuthContext)
+  return useContext(AuthContext);
 };
 
-export const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const onAuthState = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-            setIsLoading(false)
-        } )
-        return onAuthState
-    }, []);
-    return <AuthContext.Provider value={{user, isLoading}}>{children}</AuthContext.Provider>
+  useEffect(() => {
+    const onAuthState = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsLoading(false);
+    });
+    return onAuthState;
+  }, []);
+  return (
+    <AuthContext.Provider value={{ user, isLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
-
