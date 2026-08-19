@@ -1,0 +1,133 @@
+.wrapperHero {
+  display: flex;
+  flex-direction: row;
+  gap: 125px;
+  padding-top: 78px;
+  justify-content: space-between;
+}
+
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 595px;
+  height: 438px;
+
+  margin: 48px 0 140px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 102%;
+  letter-spacing: -0.02em;
+  color: #191a15;
+}
+
+.titleSpan {
+  font-style: italic;
+  color: #54be96;
+}
+
+.text {
+  max-width: 510px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
+  color: #191a15;
+}
+
+.button {
+  border-radius: 30px;
+  padding: 18px 50px;
+  width: 235px;
+  height: 60px;
+  background: #54be96;
+  display: flex;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: #fbfbfb;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.wrapperButton {
+  margin-top: 40px;
+}
+
+.wrapperImage {
+  position: relative;
+
+  margin: 0;
+}
+
+.wrapperQuestion {
+  position: absolute;
+  top: 165px;
+  left: -35px;
+  border-radius: 10px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: #4535af;
+  transform: rotate(-15deg);
+}
+
+.wrapperCard {
+  width: 311px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 335px;
+  left: -90px;
+  height: 118px;
+  border-radius: 20px;
+  background: #54be96;
+  gap: 16px;
+}
+
+.wrapperIconsCheck {
+  border-radius: 13px;
+  width: 54px;
+  height: 54px;
+  background: #fbfbfb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(251, 251, 251, 0.5);
+}
+
+.cardTextSumme {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 24px;
+  color: #fbfbfb;
+}
+
+.wrapperUsers {
+  position: absolute;
+  right: -40px;
+  top: 50px;
+  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(15deg);
+  background-color: #fbc75e;
+}

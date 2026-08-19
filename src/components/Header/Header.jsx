@@ -4,7 +4,7 @@ import css from "./Header.module.css";
 export const Header = () => {
   const { user } = useAuth();
   return (
-    <div className={css.header}>
+    <div className={`${css.header} container`}>
       <div className={css.headerLogo}>
         <span className={css.logoSpan}>psychologists.</span>
         <span className={css.logoSpanTwo}>services</span>
