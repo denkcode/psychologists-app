@@ -34,6 +34,45 @@
 .NavLink {
   font-weight: 400;
   font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: #191a15;
+  position: relative;
+}
+
+.iconActive {
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.wrapperUsers {
+  display: flex;
+  gap: 28px;
+}
+
+.wrapperIconUsers {
+  width: 40px;
+  height: 40px;
+  background: #54be96;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapperFlexIconUsers {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.textUsers {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
   line-height: 125%;
   letter-spacing: -0.01em;
   color: #191a15;
@@ -68,4 +107,18 @@
 
 .buttonTwo:hover {
   color: white;
+}
+
+.buttonLogOut {
+  border: 1px solid rgba(25, 26, 21, 0.2);
+  border-radius: 30px;
+  padding: 14px 39px;
+  width: 135px;
+  height: 48px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.01em;
+  color: #191a15;
 }
