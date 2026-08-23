@@ -1,7 +1,10 @@
 import usePsychologists from "../../hooks/usePsychologists";
 import css from "./Psychologists.module.css";
+import { useState } from "react";
 export const Psychologists = () => {
-  const { psychologists, hasMore, loadMore } = usePsychologists();
+  const [sortType, setSortType] = useState("ratingAsc");
+  const { psychologists, hasMore, loadMore, isLoading } =
+    usePsychologists(sortType);
   return (
     <>
       <ul className={`${css.psychologistList} container`}>
@@ -104,8 +107,9 @@ export const Psychologists = () => {
               onClick={loadMore}
               className={css.buttonLoadMore}
               type="button"
+              disabled={isLoading}
             >
-              Load More
+              {isLoading ? "Loading..." : "Load More"}
             </button>
           </div>
         )}
