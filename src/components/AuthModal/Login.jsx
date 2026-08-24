@@ -1,10 +1,26 @@
 import css from "./Login.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginUser } from "../../api/auth";
 const Login = ({ setIsOpen }) => {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+
+      document.documentElement.style.overflow = "";
+    };
+  }, [setIsOpen]);
   const loginSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")

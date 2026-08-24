@@ -1,13 +1,3 @@
-.psychologistList {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 170px;
-  margin-bottom: 64px;
-}
-
 .wrapperCard {
   width: 1184px;
   height: 358px;
@@ -175,7 +165,9 @@
 
 /* ================= READ MORE ================= */
 
-.wrapperDetails button {
+.loadMore {
+  align-self: flex-start;
+  width: fit-content;
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
@@ -185,35 +177,14 @@
   color: #191a15;
 }
 
-.loadMore {
-  align-self: flex-start;
-  width: fit-content;
-}
-
 .wrapperTextButton {
   margin: 24px 0 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  margin-bottom: 20px;
 }
 
-.wrapperLoadMore {
-  margin-top: 64px;
-}
-
-.buttonLoadMore {
-  border-radius: 30px;
-  padding: 14px 48px;
-  width: 176px;
-  height: 48px;
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 125%;
-  letter-spacing: -0.01em;
-  color: #fbfbfb;
-  background: #54be96;
-  align-items: center;
-  display: flex;
-  justify-content: center;
+.wrapperCardOpen {
+  height: 641px;
 }

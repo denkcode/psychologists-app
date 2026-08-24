@@ -1,12 +1,47 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { fetchPsychologists } from "../api/psyhologists";
+
 const usePsychologists = (sortType) => {
   const [psychologists, setPsychologists] = useState([]);
   const [lastKey, setLastKey] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [lastValue, setLastValue] = useState(null);
+
   const isLoadingRef = useRef(false);
+  const lastKeyRef = useRef(lastKey);
+  const lastValueRef = useRef(lastValue);
+  const hasMoreRef = useRef(hasMore);
+
+  useEffect(() => {
+    lastKeyRef.current = lastKey;
+  }, [lastKey]);
+
+  useEffect(() => {
+    lastValueRef.current = lastValue;
+  }, [lastValue]);
+
+  useEffect(() => {
+    hasMoreRef.current = hasMore;
+  }, [hasMore]);
+
+  useEffect(() => {
+    const resetState = () => {
+      setPsychologists([]);
+      setLastKey(null);
+      setLastValue(null);
+      setHasMore(true);
+
+      lastKeyRef.current = null;
+      lastValueRef.current = null;
+      hasMoreRef.current = true;
+    };
+
+    const id = setTimeout(resetState, 0);
+
+    return () => clearTimeout(id);
+  }, [sortType]);
+
   let field = null;
   let direction = "asc";
 
@@ -30,8 +65,8 @@ const usePsychologists = (sortType) => {
     direction = "desc";
   }
 
-  const loadMore = async () => {
-    if (isLoadingRef.current || !hasMore) {
+  const loadMore = useCallback(async () => {
+    if (isLoadingRef.current || !hasMoreRef.current) {
       return;
     }
 
@@ -42,10 +77,10 @@ const usePsychologists = (sortType) => {
       const pageSize = 3;
       const response = await fetchPsychologists(
         pageSize + 1,
-        lastKey,
+        lastKeyRef.current,
         field,
         direction,
-        lastValue
+        lastValueRef.current
       );
       const entries = [];
       response.forEach((childSnapshot) => {
@@ -93,14 +128,15 @@ const usePsychologists = (sortType) => {
       isLoadingRef.current = false;
       setIsLoading(false);
     }
-  };
+  }, [direction, field, sortType]);
+
   useEffect(() => {
     const id = setTimeout(() => {
       loadMore();
     }, 0);
 
     return () => clearTimeout(id);
-  }, []);
+  }, [loadMore]);
 
   return { psychologists, isLoading, hasMore, loadMore };
 };

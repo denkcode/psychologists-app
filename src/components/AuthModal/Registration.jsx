@@ -2,13 +2,36 @@ import css from "./Registration.module.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerUser } from "../../api/auth";
 const Registration = ({ setIsOpen }) => {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+
+      document.documentElement.style.overflow = "";
+    };
+  }, [setIsOpen]);
   const registrationSchema = yup.object({
-    displayName: yup.string().required(),
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    displayName: yup.string().required("Name is requeired"),
+    email: yup
+      .string()
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
   });
   const {
     register,
@@ -104,7 +127,7 @@ const Registration = ({ setIsOpen }) => {
           </div>
         </div>
         <button className={css.button} type="submit">
-          Login Up
+          Sign Up
         </button>
         {registerError && <p className={css.error}>{registerError}</p>}
       </form>

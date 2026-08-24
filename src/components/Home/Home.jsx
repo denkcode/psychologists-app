@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import css from "./Home.module.css";
+
 export const Home = () => {
   return (
     <div className={`${css.wrapperHero} container`}>
@@ -12,12 +14,14 @@ export const Home = () => {
           guide in your own life with the help of our experienced psychologists.
         </p>
         <div className={css.wrapperButton}>
-          <button className={css.button}>
-            Get started
-            <svg width={14} height={16} className={css.icons}>
-              <use href="/public/sprite.svg#icon-arrow" />
-            </svg>
-          </button>
+          <Link to="/psychologists">
+            <button className={css.button}>
+              Get started
+              <svg width={14} height={16} className={css.icons}>
+                <use href="/public/sprite.svg#icon-arrow" />
+              </svg>
+            </button>
+          </Link>
         </div>
       </div>
       <div className={css.wrapperImage}>

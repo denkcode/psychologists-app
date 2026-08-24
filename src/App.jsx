@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { Psychologists } from "../src/pages/Psychologists/Psychologists";
-import { Home } from "../src/pages/Home/Home";
-import { Favorites } from "../src/pages/Favorites/Favorites";
+import { Psychologists } from "./components/Psychologists/Psychologists";
+import { Home } from "./components/Home/Home";
+import { Favorites } from "./components/Favorites/Favorites";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { Header } from "./components/Header/Header";
 
