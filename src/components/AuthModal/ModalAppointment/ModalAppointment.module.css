@@ -1,22 +1,542 @@
 .backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  z-index: 1000;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+
+  padding: 16px;
+
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal {
-  background-color: #fbfbfb;
-  padding: 64px;
-  border-radius: 30px;
-  width: calc(100% - 32px);
-  max-width: 565px;
-  height: 509px;
   position: relative;
+
+  box-sizing: border-box;
+
+  width: 600px;
+  max-width: 100%;
+  max-height: calc(100vh - 32px);
+
+  padding: 64px;
+
+  overflow-y: auto;
+
+  background-color: #fbfbfb;
+  border-radius: 30px;
+
+  scrollbar-width: none;
+}
+
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  padding: 0;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+
+  fill: none;
+  stroke-width: 2px;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  opacity: 0.5;
+}
+
+.closeBtn:active {
+  opacity: 1;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.wrapperTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+
+  color: #191a15;
+}
+
+.text {
+  margin: 0;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: rgba(25, 26, 21, 0.5);
+}
+
+/* =========================
+   PSYCHOLOGIST
+========================= */
+
+.wrapperYourPsychologists {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.imgProfile {
+  width: 44px;
+  height: 44px;
+
+  object-fit: cover;
+
+  border-radius: 15px;
+}
+
+.psychologistsInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.textPsychologists {
+  margin: 0;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+
+  color: #8a8a89;
+}
+
+.titleInfo {
+  margin: 0;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+
+  color: #191a15;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form {
+  width: 100%;
+}
+
+.wrapperInput {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  width: 100%;
+
+  margin: 0;
+}
+
+/* Один field = input + его error */
+
+.field {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 52px;
+
+  padding: 0 16px;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: #191a15;
+
+  background-color: #fbfbfb;
+
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+
+  outline: none;
+
+  transition: border-color 150ms ease;
+}
+
+.input::placeholder {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: #191a15;
+}
+
+.input:focus {
+  border-color: #54be96;
+}
+
+/* =========================
+   PHONE + TIME
+========================= */
+
+.wrapperInputTelTime {
+  display: flex;
+
+  gap: 8px;
+
+  width: 100%;
+}
+
+.phoneWrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.phoneWrapper .input {
+  width: 100%;
+}
+
+.timeWrapper {
+  position: relative;
+
+  width: 232px;
+  flex-shrink: 0;
+}
+
+.buttonDropBox {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 52px;
+
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: #191a15;
+
+  background-color: #fbfbfb;
+
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.buttonDropBox svg {
+  width: 19px;
+  height: 19px;
+
+  flex-shrink: 0;
+}
+
+/* =========================
+   ERRORS
+========================= */
+
+.errors {
+  margin: 4px 0 0;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+
+  color: #ff0000;
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+
+.textarea {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 84px;
+
+  padding: 16px 18px;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: #191a15;
+
+  background-color: #fbfbfb;
+
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+
+  resize: none;
+
+  outline: none;
+}
+
+.textarea::placeholder {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: #191a15;
+}
+
+.textarea:focus {
+  border-color: #54be96;
+}
+
+/* =========================
+   TIME LIST
+========================= */
+
+.timeList {
+  position: absolute;
+  top: 60px;
+  right: 0;
+
+  z-index: 10;
+
+  box-sizing: border-box;
+
+  width: 151px;
+  height: 180px;
+
+  padding: 16px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  background-color: #fff;
+
+  border-radius: 12px;
+
+  box-shadow: 0 20px 69px 0 rgba(0, 0, 0, 0.07);
+
+  scrollbar-width: none;
+}
+
+.timeList::-webkit-scrollbar {
+  display: none;
+}
+
+.timeListTitle {
+  margin: 0 0 4px;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+
+  color: #191a15;
+}
+
+.timeItem,
+.timeItemActive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 28px;
+  min-height: 28px;
+
+  padding: 0;
+
+  flex-shrink: 0;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.timeItem {
+  color: rgba(25, 26, 21, 0.3);
+}
+
+.timeItemActive {
+  color: #191a15;
+}
+
+.timeItem span:first-child,
+.timeItemActive span:first-child {
+  width: 35px;
+
+  text-align: right;
+}
+
+.timeItem span:nth-child(2),
+.timeItemActive span:nth-child(2) {
+  width: 24px;
+
+  text-align: center;
+}
+
+.timeItem span:last-child,
+.timeItemActive span:last-child {
+  width: 35px;
+
+  text-align: left;
+}
+
+/* =========================
+   SEND
+========================= */
+
+.button {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 52px;
+
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 30px;
+
+  background-color: #54be96;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.01em;
+
+  color: #fbfbfb;
+
+  cursor: pointer;
+}
+
+/* =========================
+   SMALL HEIGHT
+========================= */
+
+@media screen and (max-height: 950px) {
+  .modal {
+    padding: 48px;
+  }
+
+  .wrapperTitle {
+    gap: 12px;
+  }
+
+  .wrapperYourPsychologists {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .wrapperInput {
+    gap: 14px;
+  }
+
+  .textarea {
+    height: 84px;
+  }
+
+  .button {
+    margin-top: 20px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width: 600px) {
+  .backdrop {
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+    max-height: 100vh;
+
+    padding: 48px 24px;
+
+    border-radius: 20px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .wrapperInputTelTime {
+    flex-direction: column;
+  }
+
+  .timeWrapper {
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+  }
 }

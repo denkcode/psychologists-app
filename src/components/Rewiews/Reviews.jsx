@@ -38,7 +38,12 @@ const Reviews = ({ reviews, psychologist }) => {
       >
         Make an appointment
       </button>
-      {isOpenMake && <ModalAppointment psychologist={psychologist} />}
+      {isOpenMake && (
+        <ModalAppointment
+          setIsOpenMake={setIsOpenMake}
+          psychologist={psychologist}
+        />
+      )}
     </div>
   );
 };
