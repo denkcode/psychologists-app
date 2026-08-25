@@ -219,7 +219,7 @@
 }
 
 .input:focus {
-  border-color: #54be96;
+  border-color: var(--color-primary);
 }
 
 /* =========================
@@ -338,7 +338,7 @@
 }
 
 .textarea:focus {
-  border-color: #54be96;
+  border-color: var(--color-primary);
 }
 
 /* =========================
@@ -462,7 +462,7 @@
   border: none;
   border-radius: 30px;
 
-  background-color: #54be96;
+  background-color: var(--color-primary);
 
   font-family: var(--font-family);
   font-weight: 500;

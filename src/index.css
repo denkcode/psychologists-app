@@ -1,5 +1,31 @@
 :root {
   --font-family: "Inter", sans-serif;
+
+  /* Green */
+  --color-primary: #54be96;
+  --color-primary-dark: #38a77f;
+  --color-primary-light: #e0f3ec;
+
+  --color-question: #54be96;
+  --color-accent: #fbc75d;
+}
+
+.theme-blue {
+  --color-primary: #446ff6;
+  --color-primary-dark: #355de0;
+  --color-primary-light: #d8e2fc;
+
+  --color-question: #4535af;
+  --color-accent: #fbc75d;
+}
+
+.theme-orange {
+  --color-primary: #ec8943;
+  --color-primary-dark: #e37833;
+  --color-primary-light: #fae7d7;
+
+  --color-question: #54be96;
+  --color-accent: #fbc75d;
 }
 
 *,
@@ -48,12 +74,30 @@ p {
 body {
   min-height: 100vh;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 .container {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 128px;
-  box-sizing: border-box;
+  padding-inline: 128px;
+}
+
+@media (max-width: 1279px) {
+  .container {
+    padding-inline: 64px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 479px) {
+  .container {
+    padding-inline: 16px;
+  }
 }

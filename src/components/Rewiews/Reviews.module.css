@@ -1,6 +1,7 @@
 .wrapperReviews {
   width: 758px;
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
   gap: 40px;
 }
@@ -39,7 +40,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 100%;
-  color: #54be96;
+  color: var(--color-primary);
 }
 
 .reviewInfo {
@@ -83,7 +84,7 @@
   padding: 14px 32px;
   width: 227px;
   height: 48px;
-  background: #54be96;
+  background: var(--color-primary);
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
@@ -97,4 +98,29 @@
 
 .buttonReviewsOpen button {
   color: #fbfbfb;
+}
+
+@media (max-width: 767px) {
+  .wrapperReviews {
+    width: 100%;
+    gap: 28px;
+  }
+
+  .reviewsList {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 479px) {
+  .reviewHeader {
+    gap: 12px;
+  }
+
+  .comment {
+    font-size: 15px;
+  }
+
+  .buttonReviewsOpen {
+    width: 100%;
+  }
 }

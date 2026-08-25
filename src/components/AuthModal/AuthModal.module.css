@@ -1,28 +1,31 @@
 .backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
+  padding: 16px;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  overflow-y: auto;
 }
 
 .modal {
   background-color: #fbfbfb;
   padding: 64px;
   border-radius: 30px;
-  width: calc(100% - 32px);
-  max-width: 565px;
-  height: 509px;
+  width: min(565px, 100%);
+  max-height: calc(100vh - 32px);
+  height: auto;
+  min-height: 509px;
   position: relative;
+  overflow-y: auto;
 }
 
 .modalRegistration {
-  height: 579px;
+  min-height: 579px;
 }
 
 .closeBtn {
@@ -50,4 +53,29 @@
 .closeBtn:active {
   opacity: 1;
   border-bottom: 1px solid black;
+}
+
+@media (max-width: 767px) {
+  .modal {
+    padding: 48px 24px 24px;
+    border-radius: 24px;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .backdrop {
+    padding: 8px;
+  }
+
+  .modal {
+    padding: 48px 16px 20px;
+    border-radius: 20px;
+    max-height: calc(100vh - 16px);
+  }
+
+  .closeBtn {
+    top: 16px;
+    right: 16px;
+  }
 }

@@ -1,15 +1,35 @@
-import { useAuth } from "../../context/AuthContext";
-import { useEffect, useState } from "react";
+import { useAuth } from "../../context/useAuth";
+
+import { useState } from "react";
+
 import css from "./PsychologistsCard.module.css";
+
 import Reviews from "../Rewiews/Reviews";
+
 export const PsychologistCard = ({
   psychologist,
   onRemoveFavorite,
   handleOpenLogin,
 }) => {
   const { user } = useAuth();
+
   const [isOpenReadMore, setIsOpenReadMore] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+
+  const [isFavorite, setIsFavorite] = useState(() => {
+    if (!user) {
+      return false;
+    }
+
+    const savedItems = localStorage.getItem(`favoriteItems_${user.uid}`);
+
+    if (!savedItems) {
+      return false;
+    }
+
+    const items = JSON.parse(savedItems);
+
+    return items.includes(psychologist.id);
+  });
 
   const handleClick = () => {
     if (!user) {
@@ -17,44 +37,35 @@ export const PsychologistCard = ({
       handleOpenLogin();
       return;
     }
-    setIsFavorite((prev) => !prev);
-    let items;
+
+    const storageKey = `favoriteItems_${user.uid}`;
+
+    const savedItems = localStorage.getItem(storageKey);
+
+    const items = savedItems ? JSON.parse(savedItems) : [];
+
     let newItems;
-    const savedItems = localStorage.getItem("favoriteItems");
-    if (savedItems) {
-      items = JSON.parse(savedItems);
-    } else {
-      items = [];
-    }
 
     if (items.includes(psychologist.id)) {
       newItems = items.filter((id) => id !== psychologist.id);
+
+      setIsFavorite(false);
+
       onRemoveFavorite?.(psychologist.id);
     } else {
       newItems = [...items, psychologist.id];
+
+      setIsFavorite(true);
     }
-    localStorage.setItem("favoriteItems", JSON.stringify(newItems));
+
+    localStorage.setItem(storageKey, JSON.stringify(newItems));
   };
-
-  useEffect(() => {
-    if (!user) {
-      setIsFavorite(false);
-      return;
-    }
-
-    const result = localStorage.getItem("favoriteItems");
-
-    if (result) {
-      const items = JSON.parse(result);
-      setIsFavorite(items.includes(psychologist.id));
-    } else {
-      setIsFavorite(false);
-    }
-  }, [psychologist.id, user]);
 
   return (
     <article
-      className={`${css.wrapperCard} ${isOpenReadMore ? css.wrapperCardOpen : ""}`}
+      className={`${css.wrapperCard} ${
+        isOpenReadMore ? css.wrapperCardOpen : ""
+      }`}
     >
       <div className={css.wrapperProfile}>
         <div className={css.wrapperImg}>
@@ -113,13 +124,11 @@ export const PsychologistCard = ({
         <div className={css.detailsRow}>
           <div className={css.wrapperText}>
             <p className={css.text}>Experience:</p>
-
             <p className={css.nummerText}>{psychologist.experience}</p>
           </div>
 
           <div className={css.wrapperText}>
             <p className={css.text}>License:</p>
-
             <p className={css.nummerText}>{psychologist.license}</p>
           </div>
         </div>
@@ -127,13 +136,11 @@ export const PsychologistCard = ({
         <div className={css.detailsRow}>
           <div className={css.wrapperText}>
             <p className={css.text}>Specialization:</p>
-
             <p className={css.nummerText}>{psychologist.specialization}</p>
           </div>
 
           <div className={css.wrapperText}>
             <p className={css.text}>Initial consultation:</p>
-
             <p className={css.nummerText}>
               {psychologist.initial_consultation}
             </p>
@@ -142,7 +149,8 @@ export const PsychologistCard = ({
 
         <div className={css.wrapperTextButton}>
           <p className={css.textAbout}>{psychologist.about}</p>
-          {isOpenReadMore === false && (
+
+          {!isOpenReadMore && (
             <button
               onClick={() => setIsOpenReadMore(true)}
               className={css.loadMore}
@@ -152,6 +160,7 @@ export const PsychologistCard = ({
             </button>
           )}
         </div>
+
         {isOpenReadMore && (
           <Reviews reviews={psychologist.reviews} psychologist={psychologist} />
         )}

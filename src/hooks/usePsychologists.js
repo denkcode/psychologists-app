@@ -4,15 +4,26 @@ import { fetchPsychologists } from "../api/psyhologists";
 
 const usePsychologists = (sortType) => {
   const [psychologists, setPsychologists] = useState([]);
+
   const [lastKey, setLastKey] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false);
+
   const [hasMore, setHasMore] = useState(true);
+
   const [lastValue, setLastValue] = useState(null);
 
   const isLoadingRef = useRef(false);
-  const lastKeyRef = useRef(lastKey);
-  const lastValueRef = useRef(lastValue);
-  const hasMoreRef = useRef(hasMore);
+
+  const lastKeyRef = useRef(null);
+
+  const lastValueRef = useRef(null);
+
+  const hasMoreRef = useRef(true);
+
+  const sortTypeRef = useRef(sortType);
+
+  const previousSortTypeRef = useRef(sortType);
 
   useEffect(() => {
     lastKeyRef.current = lastKey;
@@ -27,18 +38,13 @@ const usePsychologists = (sortType) => {
   }, [hasMore]);
 
   useEffect(() => {
-    setPsychologists([]);
-    setLastKey(null);
-    setLastValue(null);
-    setHasMore(true);
-
-    lastKeyRef.current = null;
-    lastValueRef.current = null;
-    hasMoreRef.current = true;
+    sortTypeRef.current = sortType;
   }, [sortType]);
 
   let field = null;
+
   let direction = "asc";
+
   let priceFilter = null;
 
   if (sortType === "az") {
@@ -50,11 +56,9 @@ const usePsychologists = (sortType) => {
   } else if (sortType === "priceLow") {
     field = "price_per_hour";
     direction = "asc";
-    priceFilter = null;
   } else if (sortType === "priceHigh") {
     field = "price_per_hour";
     direction = "desc";
-    priceFilter = null;
   } else if (sortType === "priceLess10") {
     field = "price_per_hour";
     direction = "asc";
@@ -75,11 +79,31 @@ const usePsychologists = (sortType) => {
   }
 
   const loadMore = useCallback(async () => {
-    if (isLoadingRef.current || !hasMoreRef.current) {
+    if (isLoadingRef.current) {
+      return;
+    }
+
+    const sortChanged = previousSortTypeRef.current !== sortTypeRef.current;
+
+    if (sortChanged) {
+      setPsychologists([]);
+      setLastKey(null);
+      setLastValue(null);
+      setHasMore(true);
+
+      lastKeyRef.current = null;
+      lastValueRef.current = null;
+      hasMoreRef.current = true;
+
+      previousSortTypeRef.current = sortTypeRef.current;
+    }
+
+    if (!hasMoreRef.current) {
       return;
     }
 
     isLoadingRef.current = true;
+
     setIsLoading(true);
 
     try {
@@ -87,10 +111,10 @@ const usePsychologists = (sortType) => {
 
       const response = await fetchPsychologists(
         pageSize + 1,
-        lastKeyRef.current,
+        sortChanged ? null : lastKeyRef.current,
         field,
         direction,
-        lastValueRef.current,
+        sortChanged ? null : lastValueRef.current,
         priceFilter,
       );
 
@@ -120,13 +144,8 @@ const usePsychologists = (sortType) => {
           newPsychologists.reverse();
         }
 
-        let boundaryIndex;
-
-        if (direction === "desc") {
-          boundaryIndex = 0;
-        } else {
-          boundaryIndex = visibleEntries.length - 1;
-        }
+        const boundaryIndex =
+          direction === "desc" ? 0 : visibleEntries.length - 1;
 
         setPsychologists((prev) => [...prev, ...newPsychologists]);
 
@@ -146,7 +165,7 @@ const usePsychologists = (sortType) => {
       isLoadingRef.current = false;
       setIsLoading(false);
     }
-  }, [direction, field, priceFilter, sortType]);
+  }, [direction, field, priceFilter]);
 
   useEffect(() => {
     const id = setTimeout(() => {

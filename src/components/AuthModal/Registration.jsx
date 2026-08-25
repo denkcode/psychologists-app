@@ -129,7 +129,7 @@ const Registration = ({ setIsOpen }) => {
         <button className={css.button} type="submit">
           Sign Up
         </button>
-        {registerError && <p className={css.error}>{registerError}</p>}
+        {registerError && <p className={css.errors}>{registerError}</p>}
       </form>
     </div>
   );

@@ -1,16 +1,91 @@
-# React + Vite
+# Psychologists Services
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive web application for finding psychologists and booking appointments.
 
-Currently, two official plugins are available:
+Users can browse psychologists, filter and sort them, add psychologists to favorites, and book an appointment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- User registration and login
+- Firebase authentication
+- Protected Favorites page
+- Psychologists list
+- Sorting and filtering psychologists
+- Favorites with user-specific local storage
+- Load More functionality
+- Psychologist details and reviews
+- Appointment booking form
+- Form validation with Yup
+- Responsive design for desktop, tablet, and mobile
+- Three color themes:
+  - Green
+  - Blue
+  - Orange
+- Theme persistence using localStorage
+- SVG sprite icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies
 
-## Expanding the ESLint configuration
+- React
+- React Router
+- Vite
+- Firebase
+- React Hook Form
+- Yup
+- CSS Modules
+- JavaScript
+- ESLint
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Pages
+
+### Home
+
+The main landing page with information about the service and a link to the psychologists catalog.
+
+### Psychologists
+
+A list of available psychologists.
+
+Users can:
+
+- Sort psychologists by name
+- Sort by price
+- Filter by price
+- Sort by rating
+- Load more psychologists
+- Add psychologists to favorites
+- Open an appointment form
+
+### Favorites
+
+A protected page available only to authenticated users.
+
+Each user has their own favorites stored using their Firebase user ID.
+
+### Authentication
+
+Users can:
+
+- Register
+- Log in
+- Log out
+
+Authentication is handled with Firebase Authentication.
+
+## Themes
+
+The application supports three color themes:
+
+- Green
+- Blue
+- Orange
+
+The selected theme is stored in `localStorage`, so it remains after page reload.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```

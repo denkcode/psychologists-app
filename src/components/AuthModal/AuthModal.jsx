@@ -33,7 +33,7 @@ const AuthModal = ({ isOpen, authMode, setIsOpen }) => {
           aria-label="Close modal"
         >
           <svg width={20} height={20} className={css.closeIcon}>
-            <use href="/public/sprite.svg#icon-close" />
+            <use href="/sprite.svg#icon-close" />
           </svg>
         </button>
         {content}

@@ -8,7 +8,11 @@ import PsychologistCard from "../PsychologistsCard/PsychologistsCard";
 
 import SortDropdown from "../SortDropdown/Sortdropdown";
 
+import { useAuth } from "../../context/useAuth";
+
 export const Favorites = () => {
+  const { user } = useAuth();
+
   const [sortType, setSortType] = useState("popular");
 
   const [favoritePsychologists, setFavoritePsychologists] = useState([]);
@@ -16,15 +20,15 @@ export const Favorites = () => {
   const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
-    const saved = localStorage.getItem("favoriteItems");
-
-    let parseId;
-
-    if (saved) {
-      parseId = JSON.parse(saved);
-    } else {
-      parseId = [];
+    if (!user) {
+      return;
     }
+
+    const storageKey = `favoriteItems_${user.uid}`;
+
+    const saved = localStorage.getItem(storageKey);
+
+    const parseId = saved ? JSON.parse(saved) : [];
 
     fetchAllPsychologists().then((snapshot) => {
       const psychologists = [];
@@ -42,10 +46,10 @@ export const Favorites = () => {
 
       setFavoritePsychologists(filtered);
     });
-  }, []);
+  }, [user]);
 
   const sortedPsychologists = useMemo(() => {
-    const result = [...favoritePsychologists];
+    const result = user ? [...favoritePsychologists] : [];
 
     if (sortType === "az") {
       return result.sort((a, b) => a.name.localeCompare(b.name));
@@ -56,10 +60,18 @@ export const Favorites = () => {
     }
 
     if (sortType === "priceLow") {
-      return result.filter((psychologist) => psychologist.price_per_hour < 10);
+      return result.sort((a, b) => a.price_per_hour - b.price_per_hour);
     }
 
     if (sortType === "priceHigh") {
+      return result.sort((a, b) => b.price_per_hour - a.price_per_hour);
+    }
+
+    if (sortType === "priceLess10") {
+      return result.filter((psychologist) => psychologist.price_per_hour < 10);
+    }
+
+    if (sortType === "priceGreater10") {
       return result.filter((psychologist) => psychologist.price_per_hour > 10);
     }
 
@@ -71,8 +83,13 @@ export const Favorites = () => {
       return result.sort((a, b) => a.rating - b.rating);
     }
 
+    if (sortType === "showAll") {
+      return result;
+    }
+
     return result;
-  }, [favoritePsychologists, sortType]);
+  }, [favoritePsychologists, sortType, user]);
+
   const handleRemoveFavorite = (id) => {
     setFavoritePsychologists((prev) =>
       prev.filter((psychologist) => psychologist.id !== id),
