@@ -6,7 +6,7 @@ import { fetchAllPsychologists } from "../../api/psyhologists";
 
 import PsychologistCard from "../PsychologistsCard/PsychologistsCard";
 
-import SortDropdown from "../SortDropDown/SortDropDown";
+import SortDropdown from "../SortDropdown/SortDropdown";
 
 import { useAuth } from "../../context/useAuth";
 

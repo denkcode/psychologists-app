@@ -1,7 +1,7 @@
 import usePsychologists from "../../hooks/usePsychologists";
 import css from "./Psychologists.module.css";
 import { useState } from "react";
-import SortDropdown from "../SortDropDown/SortDropDown";
+import SortDropdown from "../SortDropdown/SortDropdown";
 import PsychologistCard from "../PsychologistsCard/PsychologistsCard";
 export const Psychologists = ({ handleOpenLogin }) => {
   const [sortType, setSortType] = useState("az");
