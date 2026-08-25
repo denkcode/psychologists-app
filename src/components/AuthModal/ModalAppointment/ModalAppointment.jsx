@@ -9,10 +9,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
   const [isTime, setIsTime] = useState("00:00");
   const [isTimeOpen, setIsTimeOpen] = useState(false);
 
-  /* =========================
-     CLOSE MODAL / LOCK SCROLL
-  ========================= */
-
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -33,20 +29,12 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
     };
   }, [setIsOpenMake]);
 
-  /* =========================
-     TIME ARRAY
-  ========================= */
-
   const arrayTime = Array.from({ length: 48 }, (_, index) => {
     const hours = String(Math.floor(index / 2)).padStart(2, "0");
     const minutes = index % 2 === 0 ? "00" : "30";
 
     return `${hours}:${minutes}`;
   });
-
-  /* =========================
-     VALIDATION
-  ========================= */
 
   const ModalPsychologistsSchema = Yup.object({
     email: Yup.string()
@@ -73,10 +61,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
       .max(500, "Comment must be at most 500 characters"),
   });
 
-  /* =========================
-     REACT HOOK FORM
-  ========================= */
-
   const {
     register,
     handleSubmit,
@@ -94,22 +78,9 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
     },
   });
 
-  /* =========================
-     SUBMIT
-  ========================= */
-
   const onSubmit = (data) => {
     console.log("Appointment data:", data);
-
-    /*
-      Здесь позже будет отправка данных
-      в Firebase / backend.
-    */
   };
-
-  /* =========================
-     TIME SELECT
-  ========================= */
 
   const handleTimeChange = (time) => {
     setIsTime(time);
@@ -123,15 +94,16 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
     setIsTimeOpen(false);
   };
 
-  /* =========================
-     RENDER
-  ========================= */
-
   return (
-    <div className={css.backdrop}>
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setIsOpenMake(false);
+        }
+      }}
+      className={css.backdrop}
+    >
       <div className={css.modal}>
-        {/* CLOSE */}
-
         <button
           type="button"
           className={css.closeBtn}
@@ -144,10 +116,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
         </button>
 
         <form className={css.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* =========================
-              TITLE
-          ========================= */}
-
           <div className={css.wrapperTitle}>
             <h2 className={css.title}>
               Make an appointment with a psychologists
@@ -160,10 +128,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
               respect for your privacy.
             </p>
           </div>
-
-          {/* =========================
-              PSYCHOLOGIST
-          ========================= */}
 
           <div className={css.wrapperYourPsychologists}>
             {psychologist && (
@@ -185,10 +149,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
             )}
           </div>
 
-          {/* =========================
-              FORM FIELDS
-          ========================= */}
-
           <div className={css.wrapperInput}>
             {/* NAME */}
 
@@ -205,10 +165,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
               )}
             </div>
 
-            {/* =========================
-                PHONE + TIME
-            ========================= */}
-
             <div className={css.wrapperInputTelTime}>
               {/* PHONE */}
 
@@ -224,8 +180,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
                   <p className={css.errors}>{errors.tel.message}</p>
                 )}
               </div>
-
-              {/* TIME */}
 
               <div className={css.timeWrapper}>
                 <button
@@ -269,8 +223,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
               </div>
             </div>
 
-            {/* EMAIL */}
-
             <div className={css.field}>
               <input
                 className={css.input}
@@ -284,8 +236,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
               )}
             </div>
 
-            {/* COMMENT */}
-
             <div className={css.field}>
               <textarea
                 className={css.textarea}
@@ -298,10 +248,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
               )}
             </div>
           </div>
-
-          {/* =========================
-              SEND
-          ========================= */}
 
           <button className={css.button} type="submit">
             Send

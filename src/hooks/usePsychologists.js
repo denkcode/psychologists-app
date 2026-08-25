@@ -45,24 +45,27 @@ const usePsychologists = (sortType) => {
   let field = null;
   let direction = "asc";
 
-  if (sortType === "priceAsc") {
-    field = "price_per_hour";
-    direction = "asc";
-  } else if (sortType === "az") {
-    field = null;
+  if (sortType === "az") {
+    field = "name";
     direction = "asc";
   } else if (sortType === "za") {
-    field = null;
+    field = "name";
     direction = "desc";
-  } else if (sortType === "priceDesc") {
+  } else if (sortType === "priceLow") {
+    field = "price_per_hour";
+    direction = "asc";
+  } else if (sortType === "priceHigh") {
     field = "price_per_hour";
     direction = "desc";
-  } else if (sortType === "ratingAsc") {
-    field = "rating";
-    direction = "asc";
-  } else if (sortType === "ratingDesc") {
+  } else if (sortType === "popular") {
     field = "rating";
     direction = "desc";
+  } else if (sortType === "notPopular") {
+    field = "rating";
+    direction = "asc";
+  } else if (sortType === "showAll") {
+    field = null;
+    direction = "asc";
   }
 
   const loadMore = useCallback(async () => {
@@ -80,7 +83,7 @@ const usePsychologists = (sortType) => {
         lastKeyRef.current,
         field,
         direction,
-        lastValueRef.current
+        lastValueRef.current,
       );
       const entries = [];
       response.forEach((childSnapshot) => {

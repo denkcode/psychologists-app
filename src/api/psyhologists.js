@@ -62,3 +62,8 @@ export const fetchPsychologists = (
   }
   return get(psychologistsRef);
 };
+
+export const fetchAllPsychologists = () => {
+  const psychologistsRef = ref(database, "psychologists");
+  return get(psychologistsRef);
+};

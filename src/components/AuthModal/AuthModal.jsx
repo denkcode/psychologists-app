@@ -14,7 +14,16 @@ const AuthModal = ({ isOpen, authMode, setIsOpen }) => {
     content = <Registration setIsOpen={setIsOpen} />;
   }
   return (
-    <div role="dialog" aria-modal="true" className={css.backdrop}>
+    <div
+      role="dialog"
+      aria-modal="true"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setIsOpen(false);
+        }
+      }}
+      className={css.backdrop}
+    >
       <div
         className={`${css.modal} ${authMode === "login" ? css.modal : css.modalRegistration}`}
       >

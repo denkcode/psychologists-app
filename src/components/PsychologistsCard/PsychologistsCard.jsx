@@ -1,8 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import css from "./PsychologistsCard.module.css";
 import Reviews from "../Rewiews/Reviews";
-export const PsychologistCard = ({ psychologist }) => {
+export const PsychologistCard = ({ psychologist, onRemoveFavorite }) => {
   const [isOpenReadMore, setIsOpenReadMore] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleClick = () => {
+    setIsFavorite((prev) => !prev);
+    let items;
+    let newItems;
+    const savedItems = localStorage.getItem("favoriteItems");
+    if (savedItems) {
+      items = JSON.parse(savedItems);
+    } else {
+      items = [];
+    }
+
+    if (items.includes(psychologist.id)) {
+      newItems = items.filter((id) => id !== psychologist.id);
+      onRemoveFavorite?.(psychologist.id);
+    } else {
+      newItems = [...items, psychologist.id];
+    }
+    localStorage.setItem("favoriteItems", JSON.stringify(newItems));
+  };
+
+  useEffect(() => {
+    const result = localStorage.getItem("favoriteItems");
+    if (result) {
+      const items = JSON.parse(result);
+      if (items.includes(psychologist.id)) {
+        setIsFavorite(true);
+      }
+    }
+  }, [psychologist.id]);
+
   return (
     <article
       className={`${css.wrapperCard} ${isOpenReadMore ? css.wrapperCardOpen : ""}`}
@@ -47,10 +79,16 @@ export const PsychologistCard = ({ psychologist }) => {
           </div>
         </div>
 
-        <button type="button">
-          <svg className={css.iconHeart} width="25" height="22">
-            <use href="/sprite.svg#icon-heart-empty" />
-          </svg>
+        <button onClick={handleClick} type="button">
+          {isFavorite ? (
+            <svg className={css.iconHeart} width="25" height="22">
+              <use href="/sprite.svg#icon-heart-filled" />
+            </svg>
+          ) : (
+            <svg className={css.iconHeart} width="25" height="22">
+              <use href="/sprite.svg#icon-heart-empty" />
+            </svg>
+          )}
         </button>
       </div>
 
