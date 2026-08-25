@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
+
 import { fetchPsychologists } from "../api/psyhologists";
 
 const usePsychologists = (sortType) => {
@@ -26,24 +27,19 @@ const usePsychologists = (sortType) => {
   }, [hasMore]);
 
   useEffect(() => {
-    const resetState = () => {
-      setPsychologists([]);
-      setLastKey(null);
-      setLastValue(null);
-      setHasMore(true);
+    setPsychologists([]);
+    setLastKey(null);
+    setLastValue(null);
+    setHasMore(true);
 
-      lastKeyRef.current = null;
-      lastValueRef.current = null;
-      hasMoreRef.current = true;
-    };
-
-    const id = setTimeout(resetState, 0);
-
-    return () => clearTimeout(id);
+    lastKeyRef.current = null;
+    lastValueRef.current = null;
+    hasMoreRef.current = true;
   }, [sortType]);
 
   let field = null;
   let direction = "asc";
+  let priceFilter = null;
 
   if (sortType === "az") {
     field = "name";
@@ -54,9 +50,19 @@ const usePsychologists = (sortType) => {
   } else if (sortType === "priceLow") {
     field = "price_per_hour";
     direction = "asc";
+    priceFilter = null;
   } else if (sortType === "priceHigh") {
     field = "price_per_hour";
     direction = "desc";
+    priceFilter = null;
+  } else if (sortType === "priceLess10") {
+    field = "price_per_hour";
+    direction = "asc";
+    priceFilter = "less";
+  } else if (sortType === "priceGreater10") {
+    field = "price_per_hour";
+    direction = "desc";
+    priceFilter = "greater";
   } else if (sortType === "popular") {
     field = "rating";
     direction = "desc";
@@ -78,19 +84,24 @@ const usePsychologists = (sortType) => {
 
     try {
       const pageSize = 3;
+
       const response = await fetchPsychologists(
         pageSize + 1,
         lastKeyRef.current,
         field,
         direction,
         lastValueRef.current,
+        priceFilter,
       );
+
       const entries = [];
+
       response.forEach((childSnapshot) => {
         entries.push([childSnapshot.key, childSnapshot.val()]);
       });
 
       const hasNextPage = entries.length > pageSize;
+
       let visibleEntries;
 
       if (direction === "desc") {
@@ -104,11 +115,13 @@ const usePsychologists = (sortType) => {
           ...psychologist,
           id: key,
         }));
+
         if (direction === "desc") {
           newPsychologists.reverse();
         }
 
         let boundaryIndex;
+
         if (direction === "desc") {
           boundaryIndex = 0;
         } else {
@@ -116,14 +129,16 @@ const usePsychologists = (sortType) => {
         }
 
         setPsychologists((prev) => [...prev, ...newPsychologists]);
+
         setLastKey(visibleEntries[boundaryIndex][0]);
+
         if (field) {
           setLastValue(visibleEntries[boundaryIndex][1][field]);
         } else {
           setLastValue(null);
         }
+
         setHasMore(hasNextPage);
-        console.log(newPsychologists);
       } else {
         setHasMore(false);
       }
@@ -131,7 +146,7 @@ const usePsychologists = (sortType) => {
       isLoadingRef.current = false;
       setIsLoading(false);
     }
-  }, [direction, field, sortType]);
+  }, [direction, field, priceFilter, sortType]);
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -141,7 +156,12 @@ const usePsychologists = (sortType) => {
     return () => clearTimeout(id);
   }, [loadMore]);
 
-  return { psychologists, isLoading, hasMore, loadMore };
+  return {
+    psychologists,
+    isLoading,
+    hasMore,
+    loadMore,
+  };
 };
 
 export default usePsychologists;

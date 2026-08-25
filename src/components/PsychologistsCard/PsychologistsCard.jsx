@@ -1,11 +1,22 @@
+import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import css from "./PsychologistsCard.module.css";
 import Reviews from "../Rewiews/Reviews";
-export const PsychologistCard = ({ psychologist, onRemoveFavorite }) => {
+export const PsychologistCard = ({
+  psychologist,
+  onRemoveFavorite,
+  handleOpenLogin,
+}) => {
+  const { user } = useAuth();
   const [isOpenReadMore, setIsOpenReadMore] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleClick = () => {
+    if (!user) {
+      setIsFavorite(false);
+      handleOpenLogin();
+      return;
+    }
     setIsFavorite((prev) => !prev);
     let items;
     let newItems;
@@ -26,14 +37,20 @@ export const PsychologistCard = ({ psychologist, onRemoveFavorite }) => {
   };
 
   useEffect(() => {
+    if (!user) {
+      setIsFavorite(false);
+      return;
+    }
+
     const result = localStorage.getItem("favoriteItems");
+
     if (result) {
       const items = JSON.parse(result);
-      if (items.includes(psychologist.id)) {
-        setIsFavorite(true);
-      }
+      setIsFavorite(items.includes(psychologist.id));
+    } else {
+      setIsFavorite(false);
     }
-  }, [psychologist.id]);
+  }, [psychologist.id, user]);
 
   return (
     <article

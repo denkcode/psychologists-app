@@ -3,7 +3,7 @@ import css from "./Psychologists.module.css";
 import { useState } from "react";
 import SortDropdown from "../SortDropdown/Sortdropdown";
 import PsychologistCard from "../PsychologistsCard/PsychologistsCard";
-export const Psychologists = () => {
+export const Psychologists = ({ handleOpenLogin }) => {
   const [sortType, setSortType] = useState("az");
   const { psychologists, hasMore, loadMore, isLoading } =
     usePsychologists(sortType);
@@ -13,7 +13,10 @@ export const Psychologists = () => {
       <ul className={`${css.psychologistList} container`}>
         {psychologists.map((psychologist) => (
           <li key={psychologist.id}>
-            <PsychologistCard psychologist={psychologist}></PsychologistCard>
+            <PsychologistCard
+              psychologist={psychologist}
+              handleOpenLogin={handleOpenLogin}
+            ></PsychologistCard>
           </li>
         ))}
         {hasMore && (

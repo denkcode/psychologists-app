@@ -8,7 +8,10 @@ import {
   orderByChild,
   endBefore,
   limitToLast,
+  endAt,
+  startAt,
 } from "firebase/database";
+
 import { database } from "../firebase/config.js";
 
 export const fetchPsychologists = (
@@ -17,21 +20,35 @@ export const fetchPsychologists = (
   field,
   direction,
   lastValue,
+  priceFilter,
 ) => {
   let limitConstraint;
+
   if (direction === "desc") {
     limitConstraint = limitToLast(limit);
   } else {
     limitConstraint = limitToFirst(limit);
   }
+
   let positionConstraint;
+
   let orderConstraint;
+
   if (field) {
     orderConstraint = orderByChild(field);
   } else {
     orderConstraint = orderByKey();
   }
-  let psychologistsRef;
+
+  let priceConstraint = null;
+
+  if (priceFilter === "less") {
+    priceConstraint = endAt(9.99);
+  }
+
+  if (priceFilter === "greater") {
+    priceConstraint = startAt(10.01);
+  }
 
   if (lastKey) {
     if (field) {
@@ -47,23 +64,30 @@ export const fetchPsychologists = (
         positionConstraint = startAfter(lastKey);
       }
     }
-    psychologistsRef = query(
-      ref(database, "psychologists"),
-      orderConstraint,
-      positionConstraint,
-      limitConstraint,
-    );
-  } else {
-    psychologistsRef = query(
-      ref(database, "psychologists"),
-      orderConstraint,
-      limitConstraint,
-    );
   }
+
+  const constraints = [orderConstraint];
+
+  if (priceConstraint) {
+    constraints.push(priceConstraint);
+  }
+
+  if (positionConstraint) {
+    constraints.push(positionConstraint);
+  }
+
+  constraints.push(limitConstraint);
+
+  const psychologistsRef = query(
+    ref(database, "psychologists"),
+    ...constraints,
+  );
+
   return get(psychologistsRef);
 };
 
 export const fetchAllPsychologists = () => {
   const psychologistsRef = ref(database, "psychologists");
+
   return get(psychologistsRef);
 };

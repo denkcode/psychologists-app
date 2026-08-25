@@ -1,11 +1,10 @@
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import css from "./Header.module.css";
-import { useState } from "react";
 import AuthModal from "../AuthModal/AuthModal";
 import { useLocation } from "react-router-dom";
 import { logoutUser } from "../../api/auth";
-export const Header = () => {
+export const Header = ({ isOpen, setIsOpen, authMode, setAuthMode }) => {
   const location = useLocation();
   const locationPsychologists = location.pathname === "/psychologists";
   const locationFavorite = location.pathname === "/favorites";
@@ -14,8 +13,6 @@ export const Header = () => {
   const handleLogout = () => {
     logoutUser();
   };
-  const [isOpen, setIsOpen] = useState(false);
-  const [authMode, setAuthMode] = useState("login");
   const { user } = useAuth();
   return (
     <div className={`${css.header} container`}>
