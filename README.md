@@ -1,91 +1,154 @@
-# Psychologists Services
+# Psychologists.Services
 
-A responsive web application for finding psychologists and booking appointments.
+Psychologists.Services is a web application for finding psychologists and booking personal appointments with them.
 
-Users can browse psychologists, filter and sort them, add psychologists to favorites, and book an appointment.
+The application allows users to browse psychologists, sort them by different criteria, add psychologists to favorites, view detailed information and submit an appointment request.
 
 ## Features
 
+- Home page with a hero section and a link to the psychologists page
+- Psychologists page with a list of psychologists
+- Loading psychologists in portions using the "Load More" button
+- Sorting psychologists:
+  - A to Z
+  - Z to A
+  - lowest price
+  - highest price
+  - most popular
+  - least popular
+- Detailed psychologist information with client reviews
+- Add and remove psychologists from favorites
+- Favorites are saved for the authenticated user using `localStorage`
+- Favorites remain saved after page refresh
+- Private Favorites page available only to authenticated users
 - User registration and login
-- Firebase authentication
-- Protected Favorites page
-- Psychologists list
-- Sorting and filtering psychologists
-- Favorites with user-specific local storage
-- Load More functionality
-- Psychologist details and reviews
-- Appointment booking form
-- Form validation with Yup
-- Responsive design for desktop, tablet, and mobile
-- Three color themes:
-  - Green
-  - Blue
-  - Orange
-- Theme persistence using localStorage
-- SVG sprite icons
-
-## Technologies
-
-- React
-- React Router
-- Vite
-- Firebase
-- React Hook Form
-- Yup
-- CSS Modules
-- JavaScript
-- ESLint
+- Display of the current authenticated user
+- Logout functionality
+- Appointment form
+- Form validation using React Hook Form and Yup
+- Modal windows with closing by:
+  - close button
+  - backdrop click
+  - `Esc` key
+- Responsive layout for desktop, tablet and mobile devices
+- Multiple color themes based on the provided design
 
 ## Pages
 
 ### Home
 
-The main landing page with information about the service and a link to the psychologists catalog.
+The Home page contains:
+
+- site logo
+- navigation
+- main slogan
+- short description
+- "Get started" button
+- hero image
+- additional decorative elements
+
+The "Get started" button redirects the user to the Psychologists page.
 
 ### Psychologists
 
-A list of available psychologists.
+The Psychologists page displays psychologist cards containing:
 
-Users can:
+- psychologist photo
+- name
+- experience
+- license
+- specialization
+- initial consultation information
+- price per hour
+- rating
+- description
+- client reviews
+- favorite button
+- "Read more" functionality
+- "Make an appointment" button
 
-- Sort psychologists by name
-- Sort by price
-- Filter by price
-- Sort by rating
-- Load more psychologists
-- Add psychologists to favorites
-- Open an appointment form
+Initially, three psychologist cards are displayed. Additional cards can be loaded using the "Load More" button.
 
 ### Favorites
 
-A protected page available only to authenticated users.
+The Favorites page is a private page available only to authenticated users.
 
-Each user has their own favorites stored using their Firebase user ID.
+It displays psychologists that the current user has added to favorites.
 
-### Authentication
+Favorite data is stored separately for each authenticated user using `localStorage`.
 
-Users can:
+## Authentication
 
-- Register
-- Log in
-- Log out
+Authentication is implemented using Firebase.
 
-Authentication is handled with Firebase Authentication.
+The application supports:
 
-## Themes
+- user registration
+- user login
+- retrieving the current authenticated user
+- logout
 
-The application supports three color themes:
+Authentication state is used to control access to the Favorites page and favorite functionality.
 
-- Green
-- Blue
-- Orange
+## Favorites
 
-The selected theme is stored in `localStorage`, so it remains after page reload.
+Authenticated users can add psychologists to their favorites by clicking the heart button.
 
-## Installation
+The selected heart changes its appearance to indicate the active state.
 
-Clone the repository:
+Clicking the heart again removes the psychologist from favorites.
 
-```bash
-git clone <repository-url>
+Favorite data is stored using a user-specific `localStorage` key, so the selected psychologists remain available after refreshing the page.
+
+Unauthenticated users cannot use the favorites functionality and are prompted to authenticate.
+
+## Appointment Form
+
+Authenticated users can open an appointment form from a psychologist card.
+
+The form contains fields for:
+
+- name
+- phone number
+- meeting time
+- email
+- comment
+
+Form validation is implemented using:
+
+- React Hook Form
+- Yup
+
+All required fields must be completed before submitting the form.
+
+The appointment modal can be closed using:
+
+- the close button
+- clicking the backdrop
+- the `Esc` key
+
+## Technologies
+
+- React
+- Vite
+- React Router
+- Firebase
+- Firebase Realtime Database
+- Firebase Authentication
+- React Hook Form
+- Yup
+- CSS Modules
+- JavaScript
+- SVG sprite
+
+## Routing
+
+The application uses React Router.
+
+Available routes:
+
+```text
+/                 Home
+/psychologists    Psychologists
+/favorites        Favorites (private)
 ```

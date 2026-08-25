@@ -119,7 +119,7 @@ export const Favorites = () => {
         ))}
 
         {hasMore && (
-          <div className={css.wrapperLoadMore}>
+          <li className={css.wrapperLoadMore}>
             <button
               onClick={loadMore}
               className={css.buttonLoadMore}
@@ -127,7 +127,7 @@ export const Favorites = () => {
             >
               Load More
             </button>
-          </div>
+          </li>
         )}
       </ul>
     </>

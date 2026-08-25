@@ -20,7 +20,7 @@ export const Psychologists = ({ handleOpenLogin }) => {
           </li>
         ))}
         {hasMore && (
-          <div className={css.wrapperLoadMore}>
+          <li className={css.wrapperLoadMore}>
             <button
               onClick={loadMore}
               className={css.buttonLoadMore}
@@ -29,7 +29,7 @@ export const Psychologists = ({ handleOpenLogin }) => {
             >
               {isLoading ? "Loading..." : "Load More"}
             </button>
-          </div>
+          </li>
         )}
       </ul>
     </>

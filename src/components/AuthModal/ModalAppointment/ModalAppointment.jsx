@@ -78,9 +78,7 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Appointment data:", data);
-
+  const onSubmit = () => {
     setIsOpenMake(false);
   };
 
@@ -152,8 +150,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
           </div>
 
           <div className={css.wrapperInput}>
-            {/* NAME */}
-
             <div className={css.field}>
               <input
                 className={css.input}
@@ -168,8 +164,6 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
             </div>
 
             <div className={css.wrapperInputTelTime}>
-              {/* PHONE */}
-
               <div className={css.phoneWrapper}>
                 <input
                   className={css.input}

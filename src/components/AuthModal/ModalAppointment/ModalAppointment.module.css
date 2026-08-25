@@ -35,10 +35,6 @@
   display: none;
 }
 
-/* =========================
-   CLOSE BUTTON
-========================= */
-
 .closeBtn {
   position: absolute;
   top: 24px;
@@ -69,10 +65,6 @@
   opacity: 1;
 }
 
-/* =========================
-   TITLE
-========================= */
-
 .wrapperTitle {
   display: flex;
   flex-direction: column;
@@ -101,10 +93,6 @@
 
   color: rgba(25, 26, 21, 0.5);
 }
-
-/* =========================
-   PSYCHOLOGIST
-========================= */
 
 .wrapperYourPsychologists {
   display: flex;
@@ -153,10 +141,6 @@
   color: #191a15;
 }
 
-/* =========================
-   FORM
-========================= */
-
 .form {
   width: 100%;
 }
@@ -171,18 +155,12 @@
   margin: 0;
 }
 
-/* Один field = input + его error */
-
 .field {
   display: flex;
   flex-direction: column;
 
   width: 100%;
 }
-
-/* =========================
-   INPUT
-========================= */
 
 .input {
   box-sizing: border-box;
@@ -221,10 +199,6 @@
 .input:focus {
   border-color: var(--color-primary);
 }
-
-/* =========================
-   PHONE + TIME
-========================= */
 
 .wrapperInputTelTime {
   display: flex;
@@ -284,10 +258,6 @@
   flex-shrink: 0;
 }
 
-/* =========================
-   ERRORS
-========================= */
-
 .errors {
   margin: 4px 0 0;
 
@@ -298,10 +268,6 @@
 
   color: #ff0000;
 }
-
-/* =========================
-   TEXTAREA
-========================= */
 
 .textarea {
   box-sizing: border-box;
@@ -340,10 +306,6 @@
 .textarea:focus {
   border-color: var(--color-primary);
 }
-
-/* =========================
-   TIME LIST
-========================= */
 
 .timeList {
   position: absolute;
@@ -443,10 +405,6 @@
   text-align: left;
 }
 
-/* =========================
-   SEND
-========================= */
-
 .button {
   box-sizing: border-box;
 
@@ -475,10 +433,6 @@
   cursor: pointer;
 }
 
-/* =========================
-   SMALL HEIGHT
-========================= */
-
 @media screen and (max-height: 950px) {
   .modal {
     padding: 48px;
@@ -505,10 +459,6 @@
     margin-top: 20px;
   }
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media screen and (max-width: 600px) {
   .backdrop {

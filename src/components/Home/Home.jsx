@@ -17,13 +17,11 @@ export const Home = () => {
         </p>
 
         <div className={css.wrapperButton}>
-          <Link to="/psychologists">
-            <button className={css.button}>
-              Get started
-              <svg width={14} height={16} className={css.icons}>
-                <use href="/sprite.svg#icon-arrow" />
-              </svg>
-            </button>
+          <Link to="/psychologists" className={css.button}>
+            Get started
+            <svg width={14} height={16} className={css.icons}>
+              <use href="/sprite.svg#icon-arrow" />
+            </svg>
           </Link>
         </div>
       </div>
