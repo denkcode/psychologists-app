@@ -57,11 +57,7 @@ export const Home = () => {
 
         <div className={css.wrapperCard}>
           <div className={css.wrapperIconsCheck}>
-            <svg
-              width={30}
-              height={30}
-              className={`${css.icons} ${css.checkIcon}`}
-            >
+            <svg width={30} height={30} className={css.iconsCheck}>
               <use href="/sprite.svg#icon-check" />
             </svg>
           </div>
