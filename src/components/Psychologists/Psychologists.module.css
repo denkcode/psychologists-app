@@ -13,12 +13,14 @@
 
 .wrapperLoadMore {
   margin-top: 64px;
+  display: flex;
+  justify-content: center;
 }
 
 .buttonLoadMore {
   border-radius: 30px;
   padding: 14px 48px;
-  width: 176px;
+  width: 177px;
   height: 48px;
   font-family: var(--font-family);
   font-weight: 500;
