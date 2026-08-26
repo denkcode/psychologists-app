@@ -49,10 +49,10 @@ export const Header = ({
 
   return (
     <header className={`${css.header} container`}>
-      <div className={css.headerLogo}>
+      <Link to="/" className={css.headerLogo}>
         <span className={css.logoSpan}>psychologists.</span>
         <span className={css.logoSpanTwo}>services</span>
-      </div>
+      </Link>
 
       <nav className={css.NavLinkWrapper}>
         <Link className={css.NavLink} to="/">

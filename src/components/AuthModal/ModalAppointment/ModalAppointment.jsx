@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import css from "./ModalAppointment.module.css";
-
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -79,6 +79,7 @@ const ModalAppointment = ({ psychologist, setIsOpenMake }) => {
   });
 
   const onSubmit = () => {
+    toast.success("Appointment successfully booked!");
     setIsOpenMake(false);
   };
 

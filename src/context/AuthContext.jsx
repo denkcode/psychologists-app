@@ -1,14 +1,11 @@
 import { createContext, useEffect, useState } from "react";
-
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase/config.js";
-
-import { onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,8 +17,13 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  const logoutUser = async () => {
+    await signOut(auth);
+    window.dispatchEvent(new Event("auth-logout"));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
+    <AuthContext.Provider value={{ user, isLoading, logoutUser }}>
       {children}
     </AuthContext.Provider>
   );

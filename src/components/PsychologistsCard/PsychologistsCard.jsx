@@ -1,6 +1,6 @@
 import { useAuth } from "../../context/useAuth";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import css from "./PsychologistsCard.module.css";
 
@@ -30,6 +30,17 @@ export const PsychologistCard = ({
 
     return items.includes(psychologist.id);
   });
+  useEffect(() => {
+    const handleLogout = () => {
+      setIsFavorite(false);
+    };
+
+    window.addEventListener("auth-logout", handleLogout);
+
+    return () => {
+      window.removeEventListener("auth-logout", handleLogout);
+    };
+  }, []);
 
   const handleClick = () => {
     if (!user) {

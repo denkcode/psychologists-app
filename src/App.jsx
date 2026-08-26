@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Psychologists } from "./components/Psychologists/Psychologists";
 import { Home } from "./components/Home/Home";
 import { Favorites } from "./components/Favorites/Favorites";
@@ -57,6 +58,7 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
